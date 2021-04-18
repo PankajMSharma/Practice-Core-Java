@@ -1,25 +1,24 @@
-package root.multithread.producerconsumer;
+package root.multithread.producerconsumer.multipleversion;
 
 import java.util.List;
 
-public class Producer implements Runnable {
-	List<Integer> queue;
-	int counter = 0;
+public class Consumer implements Runnable {
+	private final List<Integer> queue;
 	
-	Producer(List<Integer> q) {
-		this.queue = q;
+	Consumer(List<Integer> queue) {
+		this.queue = queue;
 	}
 	
 	public void run() {
 		synchronized (queue) {
 			while (true) {
-				this.produce();
+				this.consume();
 			}	
 		}
 	}
 	
-	public void produce() {
-		while(queue.size() == 1) {
+	synchronized void consume() {
+		while(queue.size() == 0) {
 			try {
 				queue.wait();
 			} catch (InterruptedException e) {
@@ -27,9 +26,7 @@ public class Producer implements Runnable {
 			}
 		}
 		
-		System.out.println("Produced: " + counter);
-		queue.add(++counter);
-		
+		System.out.println("Consumed: " + queue.remove(0) + " by " + Thread.currentThread().getName());
 		queue.notifyAll();
 		
 		// Sleep can be removed

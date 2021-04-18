@@ -1,10 +1,10 @@
-package root.multithread.producerconsumer;
+package root.multithread.producerconsumer.multipleversion;
 
 import java.util.List;
 
 public class Producer implements Runnable {
 	List<Integer> queue;
-	int counter = 0;
+	static int counter = 0;
 	
 	Producer(List<Integer> q) {
 		this.queue = q;
@@ -27,7 +27,7 @@ public class Producer implements Runnable {
 			}
 		}
 		
-		System.out.println("Produced: " + counter);
+		System.out.println("Produced: " + counter + " by " + Thread.currentThread().getName());
 		queue.add(++counter);
 		
 		queue.notifyAll();

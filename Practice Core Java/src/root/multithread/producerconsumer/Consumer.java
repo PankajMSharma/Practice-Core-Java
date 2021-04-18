@@ -28,5 +28,12 @@ public class Consumer implements Runnable {
 		
 		System.out.println("Consumed: " + queue.remove(0));
 		queue.notifyAll();
+		
+		// Sleep can be removed
+		try {
+			Thread.sleep(500);
+		} catch(InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }
