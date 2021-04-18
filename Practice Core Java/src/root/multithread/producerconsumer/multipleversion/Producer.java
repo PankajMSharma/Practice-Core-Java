@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Producer implements Runnable {
 	List<Integer> queue;
-	static int counter = 0;
+	static volatile int counter = 0;
 	
 	Producer(List<Integer> q) {
 		this.queue = q;
