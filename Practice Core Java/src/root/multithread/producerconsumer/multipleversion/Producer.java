@@ -1,10 +1,11 @@
 package root.multithread.producerconsumer.multipleversion;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Producer implements Runnable {
 	List<Integer> queue;
-	static volatile int counter = 0;
+	static AtomicInteger counter = new AtomicInteger(0);
 	
 	Producer(List<Integer> q) {
 		this.queue = q;
@@ -28,7 +29,7 @@ public class Producer implements Runnable {
 		}
 		
 		System.out.println("Produced: " + counter + " by " + Thread.currentThread().getName());
-		queue.add(++counter);
+		queue.add(counter.incrementAndGet());
 		
 		queue.notifyAll();
 		
