@@ -28,8 +28,10 @@ public class Producer implements Runnable {
 			}
 		}
 		
-		System.out.println("Produced: " + counter + " by " + Thread.currentThread().getName());
-		queue.add(counter.incrementAndGet());
+		;
+		
+		System.out.println("Produced: " + counter.incrementAndGet() + " by " + Thread.currentThread().getName());
+		queue.add(counter.get());
 		
 		queue.notifyAll();
 		
